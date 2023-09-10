@@ -19,6 +19,7 @@ app.use(express.urlencoded({ extended: false }));
 
 // Routes
 app.use("/api/users", require("./routes/userRoutes"));
+
 // error handler
 app.use(errorHandler);
 
