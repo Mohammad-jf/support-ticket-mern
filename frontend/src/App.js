@@ -4,7 +4,8 @@ import Home from "../src/pages/Home";
 import Login from "../src/pages/Login";
 import Register from "../src/pages/Register";
 import Header from "./components/Header";
-
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
@@ -19,9 +20,9 @@ function App() {
           </Routes>
         </div>
       </Router>
+      <ToastContainer />
     </>
-  )
-
+  );
 }
 
 export default App;
