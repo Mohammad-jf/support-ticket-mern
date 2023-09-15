@@ -30,7 +30,21 @@ const createTicket = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("please add a product & description");
   }
-  res.status(200).json({ message: "create ticket" });
+
+  const user = await User.findById(req.user.id);
+  if (!user) {
+    res.status(401);
+    throw new Error("user not found");
+  }
+
+  const ticket = await Ticket.create({
+    product,
+    description,
+    user: req.user.id,
+    status: "new",
+  });
+
+  res.status(201).json(ticket);
 });
 
 module.exports = { getTickets, createTicket };
