@@ -4,7 +4,7 @@ const Ticket = require("../models/ticketModel");
 
 // @desc get user tickets
 // @route GET /api/tickets
-// @access privete
+// @access private
 
 const getTickets = asyncHandler(async (req, res) => {
   // get user using the id & jwt
@@ -20,9 +20,9 @@ const getTickets = asyncHandler(async (req, res) => {
   res.status(200).json(tickets);
 });
 
-// @desc get user ticket
+// @desc get single ticket
 // @route GET /api/tickets/:id
-// @access privete
+// @access private
 
 const getTicket = asyncHandler(async (req, res) => {
   // get user using the id & jwt
@@ -96,7 +96,7 @@ const updateTicket = asyncHandler(async (req, res) => {
 
 // @desc create new ticket
 // @route  Post /api/tickets
-// @access privete
+// @access private
 
 const createTicket = asyncHandler(async (req, res) => {
   const { product, description } = req.body;
