@@ -5,8 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Spinner from './../components/Spinner';
 import BackButton from './../components/BackButton';
-import TicketItem from '../components/TicketItem';
-
 
 const NewTicket = () => {
     // global state
