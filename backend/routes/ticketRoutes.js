@@ -4,7 +4,7 @@ const { protect } = require("../middleware/authMiddleware");
 const noteRouter = require("./noteRoutes");
 
 // reRoute into noteRouter
-// router.use("/:ticketId/notes", noteRouter);
+router.use("/:id/notes", noteRouter);
 
 const {
   getTickets,
