@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate, useParams } from 'react-router-dom'
-import { getTicket, reset, closeTicket } from '../features/tickets/ticketSlice'
+import { useNavigate, reset, useParams } from 'react-router-dom'
+import { getTicket, closeTicket } from '../features/tickets/ticketSlice'
 import { toast } from 'react-toastify'
 import Spinner from '../components/Spinner'
 import BackButton from '../components/BackButton'
+import { getNotes, reset as notesReset } from '../features/notes/noteSlice'
 
 
 
@@ -12,6 +13,7 @@ import BackButton from '../components/BackButton'
 
 const Ticket = () => {
     const { isError, isLoading, isSuccess, message, ticket } = useSelector((state) => state.tickets)
+    const { isLoading: notesIsLoading, notes } = useSelector((state) => state.notes)
     const { id } = useParams();
     const dispatch = useDispatch();
     const navigate = useNavigate();
