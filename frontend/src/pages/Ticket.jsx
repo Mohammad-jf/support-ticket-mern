@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate, reset, useParams } from 'react-router-dom'
-import { getTicket, closeTicket } from '../features/tickets/ticketSlice'
+import { useNavigate, useParams } from 'react-router-dom'
+import { getTicket, reset, closeTicket } from '../features/tickets/ticketSlice'
 import { toast } from 'react-toastify'
 import Spinner from '../components/Spinner'
 import BackButton from '../components/BackButton'
 import { getNotes, reset as notesReset } from '../features/notes/noteSlice'
+import NoteItem from '../components/NoteItem'
 
 
 
@@ -25,8 +26,9 @@ const Ticket = () => {
         }
 
         dispatch(getTicket(id));
+        dispatch(getNotes(id));
 
-        return () => isSuccess && dispatch(reset());
+        return () => isSuccess && dispatch(reset(), notesReset());
     }, [isSuccess, isError, message, dispatch, id])
 
 
@@ -36,7 +38,7 @@ const Ticket = () => {
         navigate('/tickets')
     }
 
-    if (isLoading) {
+    if (isLoading || notesIsLoading) {
         return <Spinner />
     }
 
@@ -61,7 +63,10 @@ const Ticket = () => {
                     <h3>Description of Issue </h3>
                     <p>{ticket.description}</p>
                 </div>
+                <h2>Notes</h2>
             </header>
+
+            {notes.map((note) => <NoteItem key={note._id} note={note} />)}
 
 
             {ticket.status !== 'closed' && (
