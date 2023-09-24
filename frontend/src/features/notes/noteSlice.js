@@ -12,10 +12,10 @@ const initialState = {
 //create new note
 export const createNote = createAsyncThunk(
   "notes/create",
-  async (noteData, thunkAPI) => {
+  async ({ noteText, ticketId }, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.token;
-      return await noteService.createNote(noteData, token);
+      return await noteService.createNote(noteText, ticketId, token);
     } catch (err) {
       const message =
         (err.response && err.response.data && err.response.data.message) ||
@@ -53,19 +53,33 @@ export const noteSlice = createSlice({
     reset: (state) => initialState,
   },
   extraReducers: (builder) => {
-    builder.addCase(getNotes.pending, (state) => {
-      state.isLoading = true;
-    });
-    builder.addCase(getNotes.fulfilled, (state, action) => {
-      state.isLoading = false;
-      state.isSuccess = true;
-      state.notes = action.payload;
-    });
-    builder.addCase(getNotes.rejected, (state, action) => {
-      state.isLoading = false;
-      state.isError = true;
-      state.message = action.payload;
-    });
+    builder
+      .addCase(getNotes.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getNotes.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.notes = action.payload;
+      })
+      .addCase(getNotes.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      .addCase(createNote.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(createNote.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.notes.push(action.payload);
+      })
+      .addCase(createNote.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      });
   },
 });
 
